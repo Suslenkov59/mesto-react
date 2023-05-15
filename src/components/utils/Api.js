@@ -48,19 +48,19 @@ class Api {
     }
 
     /*отправка данных пользователя*/
-    setUserInfoApi(userData) {
+    setUserInfoApi(userName, userAbout) {
         return this._request(`${this._url}users/me`, {
             method: 'PATCH',
             headers: this._headers,
             body: JSON.stringify({
-                name: userData.name,
-                about: userData.job
+                name: userName,
+                about: userAbout
             })
         })
     }
 
     /*обновление аватара*/
-    sendUserAvatar(data) {
+    setUserAvatar(data) {
         return this._request(`${this._url}users/me/avatar`, {
             method: 'PATCH',
             headers: this._headers,
@@ -71,21 +71,12 @@ class Api {
     }
 
     /*лайк*/
-    like(cardId) {
+    changeLikeCardStatus(cardId, isLiked) {
         return this._request(`${this._url}cards/${cardId}/likes`, {
-            method: 'PUT',
+            method: `${isLiked ? 'PUT' : 'DELETE'}`,
             headers: this._headers
         })
     }
-
-    /*удаление лайка*/
-    likeRemove(cardId) {
-        return this._request(`${this._url}cards/${cardId}/likes`, {
-            method: 'DELETE',
-            headers: this._headers
-        })
-    }
-
 }
 
 /*Api*/
