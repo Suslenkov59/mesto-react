@@ -1,16 +1,16 @@
-import React from 'react'
+import { useContext, useEffect, useState } from 'react';
 import PopupWithForm from './PopupWithForm'
 import { CurrentUserContext } from '../contexts/CurrentUserContext'
 
 function EditProfilePopup(props) {
-    const currentUser = React.useContext(CurrentUserContext)
-    const [name, setName] = React.useState('')
-    const [description, setDescription] = React.useState('')
+    const currentUser = useContext(CurrentUserContext)
+    const [name, setName] = useState('')
+    const [description, setDescription] = useState('')
 
-    React.useEffect(() => {
+    useEffect(() => {
         setName(currentUser.name)
         setDescription(currentUser.about)
-    }, [currentUser])
+    }, [currentUser, props.isOpen]);
 
     function handleChangeName(e) {
         setName(e.target.value)
@@ -40,12 +40,12 @@ function EditProfilePopup(props) {
             <div className="popup__field">
             <input type="text" name="name" id="name-input"
                    className="popup__input popup__input_type_name"
-                   placeholder="Имя" minLength="2" maxLength="40" required value={name} onChange={handleChangeName}/>
+                   placeholder="Имя" minLength="2" maxLength="40" required value={name || ''}  onChange={handleChangeName}/>
             <span className="popup__input-error name-input-error"></span>
             </div>
                 <div className="popup__field">
             <input type="text" name="job" id="job-input" className="popup__input popup__input_type_job"
-                   placeholder="О себе" minLength="2" maxLength="200" required value={description} onChange={handleChangeDescription}/>
+                   placeholder="О себе" minLength="2" maxLength="200" required value={description || ''}  onChange={handleChangeDescription}/>
             <span className="popup__input-error job-input-error"></span>
                 </div>
         </PopupWithForm>
